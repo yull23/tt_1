@@ -3,7 +3,6 @@ import {
   Module,
   NestModule,
   RequestMethod,
-  applyDecorators,
 } from '@nestjs/common'
 import { PrismaModule } from './prisma/prisma.module'
 import { UserModule } from './user/user.module'

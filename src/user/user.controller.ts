@@ -18,6 +18,17 @@ export class UserController {
 
   @Get('ip')
   getIp1(@Req() req: Request) {
-    return [req.headers['ip'], req.headers['ipRemote']]
+    return req.header['ips']
+  }
+
+  @Post('login')
+  loginUser(
+    @Body() data: { email: string; ips: { ip; ipRemote } },
+    @Req() req: Request,
+  ) {
+    return this.userService.loginUser({
+      email: data.email,
+      ips: req.header['ips'],
+    })
   }
 }

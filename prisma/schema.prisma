@@ -14,8 +14,28 @@ datasource db {
 }
 
 model User {
-  id        Int    @id @default(autoincrement())
-  email     String @unique
-  firstName String
-  lastName  String
+  id                 Int                  @id @default(autoincrement())
+  email              String               @unique
+  firstName          String
+  lastName           String
+  ipAddresses        IpAddress[]
+  ipAddressesOnUsers IpAddressesOnUsers[]
+}
+
+model IpAddress {
+  id                 Int                  @id @default(autoincrement())
+  ip                 String
+  ipRemote           String
+  users              User[]
+  ipAddressesOnUsers IpAddressesOnUsers[]
+}
+
+model IpAddressesOnUsers {
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+
+  ipAddressId Int
+  ipAddress   IpAddress @relation(fields: [ipAddressId], references: [id])
+
+  @@id([userId, ipAddressId])
 }
