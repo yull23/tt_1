@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common'
+import { Body, Controller, Get, Ip, Post } from '@nestjs/common'
 import { UserService } from './user.service'
 import { User } from '@prisma/client'
 
@@ -14,4 +14,7 @@ export class UserController {
   createUser(@Body() data: User) {
     return this.userService.createUser(data)
   }
+
+  @Get('ip')
+  getIp1() {}
 }
