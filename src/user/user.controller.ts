@@ -1,6 +1,7 @@
-import { Body, Controller, Get, Ip, Post } from '@nestjs/common'
+import { Body, Controller, Get, Post, Req } from '@nestjs/common'
 import { UserService } from './user.service'
 import { User } from '@prisma/client'
+import { Request } from 'express'
 
 @Controller('user')
 export class UserController {
@@ -16,5 +17,7 @@ export class UserController {
   }
 
   @Get('ip')
-  getIp1() {}
+  getIp1(@Req() req: Request) {
+    return [req.headers['ip'], req.headers['ipRemote']]
+  }
 }
