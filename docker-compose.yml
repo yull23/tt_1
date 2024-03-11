@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  postgresDB:
+    image: postgres:15.1
+    restart: always
+    environment:
+      - POSTGRES_USER=db_tt
+      - POSTGRES_PASSWORD=db_tt
+      - POSTGRES_DB=db_tt
+    volumes:
+      - ./db:/var/lib/postgresql/data
+    ports:
+      - '5433:5432'
