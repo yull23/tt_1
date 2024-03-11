@@ -11,7 +11,7 @@ export class GetIpMiddleware implements NestMiddleware {
         req.header['cf-connecting-ip'] ||
         req.header['x-real-ip'] ||
         '',
-      ipRemote: req.socket.remoteAddress,
+      ipRemote: req.socket.remoteAddress || '',
     }
     req.header['ips'] = ips
 

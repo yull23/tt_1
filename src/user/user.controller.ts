@@ -22,11 +22,11 @@ export class UserController {
   }
 
   @Post('login')
-  loginUser(
+  async loginUser(
     @Body() data: { email: string; ips: { ip; ipRemote } },
     @Req() req: Request,
   ) {
-    return this.userService.loginUser({
+    return await this.userService.loginUser({
       email: data.email,
       ips: req.header['ips'],
     })

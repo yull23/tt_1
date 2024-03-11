@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common'
 import { User } from '@prisma/client'
 import { IpLogService } from 'src/log/ip-log.service'
 import { PrismaService } from 'src/prisma/prisma.service'
-import { isPromise } from 'util/types'
 
 @Injectable()
 export class UserService {
@@ -23,12 +22,15 @@ export class UserService {
     return await this.prisma.user.findMany()
   }
 
-  async loginUser(data: { email: string; ips: { ip; ipRemote } }) {
+  async loginUser(data: {
+    email: string
+    ips: { ip: string; ipRemote: string }
+  }) {
     try {
       const user = await this.prisma.user.findUnique({
         where: { email: data.email },
       })
-      // 
+      //
       // Code: Authentication and authorization
       //
       // Code: Authentication and authorization
@@ -43,7 +45,8 @@ export class UserService {
           },
         },
       })
-      
+      this.ipLogService.data(user.id, ip.id)
+      console.log('Save')
     } catch (error) {
       console.log(error)
       throw new Error('Error creating user')
